@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+        <title>circles</title>
+    <link rel="stylesheet" type="text/css" href="circles.css">
+
+    </head>
+
+    <body> 
+        <div id="content">
+            <ul>
+            <li class="bartool" onclick="getrandomandpaint()">draw circles </li>
+            <li class="bartool" onclick="clearCanvas()">clear </li>
+            <li class="bartool" onclick="autodraw()">auto draw </li>
+            <li class="bartool" onclick="circles5()">draw five circles </li>
+            <li class="bartool" onclick="stopAUTO()">stop auto draw  </li>
+            </ul>
+        
+            <canvas id="myCanvas" width="1200" height="500"></canvas>
+        </div>                
+            
+            <script id="line">
+
+                function Draw_Circle(height, width, radius, colorHex) {
+                    var canvas = document.getElementById("myCanvas").getContext("2d");
+                    // Draw Circle:
+                    canvas.beginPath();
+                    canvas.arc(width, height, radius, 0, 2 * Math.PI); // x-center, y-center, radius, start-angle, end-angle
+                    canvas.strokeStyle = colorHex;
+                    canvas.stroke();
+                }
+
+               
+                function getcolor() {
+                    var letters = '0123456789ABCDEF';
+                    var color = '#';
+                    for (var i = 0; i < 6; i++) {
+                        color += letters[Math.floor(Math.random() * 16)];
+                    }   
+                    return color;
+                }            
+            
+                function getRndInteger(min, max) {
+                    return Math.floor(Math.random() * (max - min)) + min;
+                }           
+            
+                function getrandomandpaint() {                   
+                    
+                    for (var i = 0; i < 25; i++) {
+                        var p1_x = getRndInteger(0, 1000);
+                        var p1_y = getRndInteger(0, 1400);
+                        var radious = getRndInteger(0, 200);
+                        Draw_Circle(p1_x, p1_y, radious , getcolor());
+                    }
+                }                                           
+            
+                function clearCanvas() {                     
+                    location.reload();
+                    var myCanvas = document.getElementById("myCanvas").getContext("2d");
+                    myCanvas.clearRect(0, 0, 1200, 500);
+                }
+                var interval
+                function autodraw() {
+                    interval = setInterval(getrandomandpaint, 3000);
+                }
+
+                function circles5()
+                {                                
+                    for (var i = 0; i < 5; i++) {
+                        var canvas = document.getElementById("myCanvas").getContext("2d");
+                        // Draw Circle:
+                        canvas.beginPath();
+                        canvas.arc(600, 250, getRndInteger(1, 250), 0, 2 * Math.PI); // x-center, y-center, radius, start-angle, end-angle
+                        canvas.strokeStyle = getcolor();
+                        canvas.stroke();
+                    }
+                }
+                function stopAUTO() {
+                    clearInterval(interval);
+                }
+            </script>
+        
+
+</body>
+</html>
+
